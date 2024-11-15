@@ -33,6 +33,6 @@ jobs:
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
-        if: steps.pubPublish.outputs.exit_code == 0
+        if: steps.validate.outputs.exit_code == 0
         with:
           generate_release_notes: true
