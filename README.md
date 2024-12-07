@@ -8,19 +8,12 @@ Create a `main.tf` file in your project directory with the following content:
 
 ```terraform
 terraform {
-  backend "local" {}
-
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.74.0"
+      version = ">= 5.80.0"
     }
   }
-}
-
-provider "aws" {
-  # partial configuration, reads keys from env vars
-  region = var.aws_region
 }
 
 module "example_backend" {
