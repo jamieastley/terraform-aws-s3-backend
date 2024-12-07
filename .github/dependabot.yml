@@ -1,6 +1,13 @@
 version: 2
 updates:
   - package-ecosystem: "terraform"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "12:00"
+      timezone: "Australia/Sydney"
+
+  - package-ecosystem: "terraform"
     directory: "/example"
     schedule:
       interval: "daily"
