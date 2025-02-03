@@ -13,8 +13,3 @@ variable "environment_name" {
   description = "The name of the environment"
   type        = string
 }
-
-variable "table_name" {
-  description = "The name of the DynamoDB table to create"
-  type        = string
-}

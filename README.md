@@ -11,7 +11,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 5.80.0"
+      version = ">= 5.84"
     }
   }
 }
@@ -21,6 +21,16 @@ module "example_backend" {
   app_name         = "<app_name>"
   bucket_name      = "<bucket_name>"
   environment_name = "<environment_name>"
-  table_name       = "<table_name>"
+  dynamo_tables    = [
+    {
+      table_name   = "<table_name>"
+      billing_mode = "<billing_mode>"
+      hash_key     = "<hash_key>"
+      attribute = [{
+        name = "<attribute_name>"
+        type = "<attribute_type>"
+      }]
+    },
+  ]
 }
 ```
