@@ -1,0 +1,20 @@
+name: "Validate master"
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  validate_main_module:
+    uses: jamieastley/terraform_gh_actions/.github/workflows/validate_terraform_module.yml@v1.0.0
+    name: "Validate module"
+    with:
+      terraform_version: ${{ vars.TERRAFORM_VERSION }}
+
+  validate_example:
+    uses: jamieastley/terraform_gh_actions/.github/workflows/validate_terraform_module.yml@v1.0.0
+    name: "Validate example"
+    with:
+      terraform_version: ${{ vars.TERRAFORM_VERSION }}
+      working-directory: example
