@@ -2,13 +2,14 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 6.0"
+      version = ">= 6.27.0"
     }
   }
 }
 
 resource "aws_s3_bucket" "bucket" {
   bucket        = var.bucket_name
+  bucket_prefix = var.bucket_prefix
   force_destroy = true
 }
 
@@ -19,22 +20,6 @@ resource "aws_s3_bucket_versioning" "bucket_versioning" {
   }
 }
 
-resource "aws_dynamodb_table" "terraform_locks" {
-  for_each = { for table in var.dynamo_tables : table.table_name => table }
-
-  name         = each.value.table_name
-  billing_mode = each.value.billing_mode
-  hash_key     = each.value.hash_key
-
-  dynamic "attribute" {
-    for_each = each.value.attribute
-    content {
-      name = attribute.value.name
-      type = attribute.value.type
-    }
-  }
-}
-
 resource "aws_s3_bucket_public_access_block" "bucket_access" {
   bucket = aws_s3_bucket.bucket.id
 
@@ -42,4 +27,9 @@ resource "aws_s3_bucket_public_access_block" "bucket_access" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_request_payment_configuration" "example" {
+  bucket = aws_s3_bucket.bucket.id
+  payer  = var.bucket_payment_payer
 }
