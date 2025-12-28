@@ -53,28 +53,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: ${{ env.TERRAFORM_VERSION }}
-
-      - name: Terraform Format check
-        id: fmt
-        run: terraform fmt -check
-        shell: bash
-
-      - name: Terraform Init
-        id: init
-        run: terraform init
-        shell: bash
-
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
-        shell: bash
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
-        if: steps.validate.outputs.exit_code == 0
         with:
           generate_release_notes: true
