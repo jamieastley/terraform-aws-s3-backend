@@ -16,7 +16,6 @@ provider "aws" {
 }
 
 module "example_backend" {
-  source        = "../"
-  bucket_name   = var.bucket_name
-  bucket_prefix = null
+  source      = "../"
+  bucket_name = var.bucket_name
 }
