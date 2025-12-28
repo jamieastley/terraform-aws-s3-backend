@@ -29,7 +29,7 @@ resource "aws_s3_bucket_public_access_block" "bucket_access" {
   restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_request_payment_configuration" "example" {
+resource "aws_s3_bucket_request_payment_configuration" "bucket_payment" {
   bucket = aws_s3_bucket.bucket.id
   payer  = var.bucket_payment_payer
 }
