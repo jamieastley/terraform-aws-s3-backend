@@ -8,6 +8,9 @@ on:
     branches:
       - master
 
+env:
+  TERRAFORM_VERSION: "1.14.3"
+
 jobs:
   validate_modules:
     runs-on: ubuntu-latest
@@ -21,9 +24,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - uses: 'moonrepo/setup-toolchain@v0.6'
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
         with:
-          auto-install: true
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
 
       - name: Terraform Format check
         id: fmt
