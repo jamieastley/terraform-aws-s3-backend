@@ -1,0 +1,44 @@
+name: "Validate Modules"
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  validate_modules:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module:
+          - ./
+          - example
+    name: "Validate ${{ matrix.module }} module"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - uses: 'moonrepo/setup-toolchain@v0.6'
+        with:
+          auto-install: true
+
+      - name: Terraform Format check
+        id: fmt
+        working-directory: ${{ matrix.module }}
+        run: terraform fmt -check
+        shell: bash
+
+      - name: Terraform Init
+        id: init
+        working-directory: ${{ matrix.module }}
+        run: terraform init
+        shell: bash
+
+      - name: Terraform Validate
+        id: validate
+        working-directory: ${{ matrix.module }}
+        run: terraform validate -no-color
+        shell: bash
