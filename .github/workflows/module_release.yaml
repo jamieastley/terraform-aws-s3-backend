@@ -19,7 +19,7 @@ jobs:
     name: "Validate ${{ matrix.module }} module"
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - uses: 'moonrepo/setup-toolchain@v0.6'
         with:
@@ -51,7 +51,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
